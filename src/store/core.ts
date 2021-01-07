@@ -23,6 +23,13 @@ class CoreModule extends VuexModule {
         return  await axios.delete(url).then((r)=>{return r.data}).catch((e)=>{return e.response.data})
     }
 
+    async getChoice(name:string):Promise<any>{
+        return await this.getHttp(`/api/default/choice/?name=${name}`)
+    }
+    async getChoiceValue(name:string):Promise<any>{ 
+        return await this.getHttp(`api/custom/choices/${name}/`)
+    }
+
   
     async getBase64(file:any) {
         return new Promise((resolve, reject) => {

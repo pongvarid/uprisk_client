@@ -17,13 +17,14 @@
                             ข้อมูลทั่วไป
                         </v-tab>
                         <v-tab-item>
+                            <pre>{{test}}</pre>
 
                             <form action="" class="mt-2">
                                 <v-select dense :items="[]" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-select>
-                                <v-combobox dense :items="[]" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-combobox>
+                                <v-combobox v-model="test" dense :items="['a','b','c','d']" multiple outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-combobox>
                                 <v-text-field dense outlined placeholder="ระบุข้อมูล" label="ค่าเป้าหมาย"></v-text-field>
                                 <v-combobox dense :items="[]" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-combobox>
-                                <v-btn class="float-right" color="primary">บันทึกข้อมูล</v-btn>
+                                
                             </form>
                         </v-tab-item>
                         <v-tab>
@@ -56,12 +57,35 @@
                                 </h2>
                                 <v-text-field class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
                             </div>
-                            <div class="flex flex-row flex-wrap">หลักเกณฑ์การประเมินระดับความเสี่ยง
-                                <v-text-field class="w-5/12" outlined dense label="โอกาส"></v-text-field>
-                                <h2 class="w-2/12">
-                                    <center>X</center>
-                                </h2>
-                                <v-text-field class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
+                            <div class="flex flex-row flex-wrap">
+                                <v-text-field readonly label="คะแนน" id="id"></v-text-field>
+                                <v-text-field  readonly label="ผล" id="id"></v-text-field>
+                            </div>
+                            <div class="flex flex-row flex-wrap">
+                                <h2 class="w-4/12">ระดับคะแนน</h2>
+                                <h2 class="w-4/12">โอกาส(L)</h2>
+                                <h2 class="w-4/12">ผลกระทบ(I)</h2>
+
+                                <v-text-field disabled class="w-3/12" outlined dense label="5"></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                <v-text-field disabled class="w-3/12" outlined dense label="4"></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                <v-text-field disabled class="w-3/12" outlined dense label="3"></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                <v-text-field disabled class="w-3/12" outlined dense label="2"></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                <v-text-field disabled class="w-3/12" outlined dense label="1"></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                <v-text-field class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
                             </div>
                         </v-tab-item>
                         <v-tab>
@@ -70,7 +94,8 @@
                         <v-tab-item>
                             <v-combobox outlined dense label="วิธีการ/มาตรการจัดการความเสี่ยง"></v-combobox>
                             <v-combobox outlined dense label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
-                            <v-text-field outlined dense label="กําหนดเสร็จ/ผู้รับผิดชอบ"></v-text-field>
+                            <v-text-field type="date"  outlined dense label="กําหนดเสร็จ"></v-text-field>
+                            <v-text-field outlined dense label="ผู้รับผิดชอบ"></v-text-field>
                         </v-tab-item>
                         <v-tab>
                             การลงนาม
@@ -82,7 +107,10 @@
                 </form>
             </v-card-text>
             <v-card-actions>
-                <v-btn class="float-right" color="primary">บันทึกข้อมูล</v-btn>
+                <div class="flex justify-end" >
+<v-btn class="float-right" color="primary">บันทึกข้อมูล</v-btn>
+                </div>
+                
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -102,6 +130,12 @@ export default class RMPlan extends Vue {
     private dialog: boolean = true;
     private panel: any = [0, 1]
     private tabs: any = 1
+    private test:any =[
+  "a",
+  "b",
+  "c",
+  "asas"
+]
     private async created() {
 
         this.response = true;

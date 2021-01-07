@@ -5,8 +5,11 @@
         <h2 class="text-xl">แผนบริหารจัดการความเสี่ยงและควบคุมภายใน (RM-Plan) </h2> 
         <v-spacer></v-spacer>
         <AddRisk />
-        <ListRisk />
+       
    </v-toolbar>
+   <div>
+        <ListRisk />
+   </div>
  
 </div>
 </template>

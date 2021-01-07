@@ -51,6 +51,12 @@ const AppRouter:any  = [
         enabled:false,
         component: getView('RiskMain')
     },
+    {
+        path: 'risk/edit',
+        name: 'riskedit', 
+        enabled:false,
+        component: getView('RiskEdit')
+    },
     
 ]
 

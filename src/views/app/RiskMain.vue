@@ -8,12 +8,13 @@
             <v-btn @click="$router.go(-1)" style="font-size:16px;" text small color="blue">หน่วยงาน</v-btn>
         </li>
         <li>
-            <v-btn style="font-size:16px;" text small>{{CURRENT_AGENCY.name}}</v-btn>
+            <v-btn style="font-size:16px;" text small>{{CURRENT_AGENCY.name}} <span>({{YEARS.name}})</span> </v-btn>
         </li>
     </ul>
     <div class="p-3 mt-3">
-        <h2 class="text-2xl">{{CURRENT_AGENCY.name}}</h2> 
-        <v-tabs color="primary" slider-color="primary" class="mt-2">
+        <!-- <h2 class="text-2xl">{{CURRENT_AGENCY.name}} </h2> 
+        <span class="text-base text-purple-600" v-if="YEARS"> ปีงบประมาณ {{YEARS.name}}</span> -->
+        <v-tabs color="primary" slider-color="primary"  >
             <v-tab>
                 แผนบริหารจัดการความเสี่ยงและควบคุมภายใน (RM-Plan)
             </v-tab>
@@ -55,6 +56,7 @@ export default class RiskMain extends Vue {
 
     private CURRENT_AGENCY: any = null
     private PERMISSION: boolean = false
+    private YEARS:any = null
     private async created() {
         await this.getPermission();
         await this.getCurrentAgency()
@@ -65,6 +67,8 @@ export default class RiskMain extends Vue {
     }
     private async getCurrentAgency() {
         this.CURRENT_AGENCY = await Core.getHttp(`/api/default/agency/${this.$route.query.agency}/`)
+        this.YEARS = await Core.getHttp(`/api/default/year/${this.$route.query.year}`)
+
     }
 
 }

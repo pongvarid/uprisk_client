@@ -89,7 +89,7 @@ import { Core } from '../../store/core'
 })
 export default class RMPlanTable extends Vue {
     private response: boolean = false;
-    dialog: boolean = true;
+    dialog: boolean = false;
     private async created() {
 
         this.response = true;

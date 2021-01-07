@@ -1,0 +1,18 @@
+/* @font-face {
+    font-family: 'Sukhumvit Set';
+    src: url('SukhumvitSet-Medium.woff2') format('woff2'),
+        url('SukhumvitSet-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+} */
+
+@font-face {
+	font-family: 'Sukhumvit';
+	/*src: url('fonts/sukhumvit-set/SukhumvitSet-Bold.ttf');
+  src: url('fonts/sukhumvit-set/SukhumvitSet-Light.ttf');*/
+  src: url('./SFProTHDisplay_regular.woff2') format('woff2');
+  /*src: url('fonts/sukhumvit-set/SukhumvitSet-SemiBold.ttf');
+  src: url('fonts/sukhumvit-set/SukhumvitSet-Text.ttf');
+  src: url('fonts/sukhumvit-set/SukhumvitSet-Thin.ttf');*/
+}  

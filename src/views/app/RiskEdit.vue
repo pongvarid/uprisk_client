@@ -2,133 +2,255 @@
 <div>
 
     <v-dialog v-model="dialog" scrollable persistent fullscreen transition="dialog-transition">
-        <form @submit.prevent="updatePlanRisk()" class="mt-2">
         <v-card>
-            <v-card-title primary-title>
-                <h2 class="font-semibold">จัดการข้อมูล (RM Plan)</h2>
+            <v-card-title class="title-bg">
+                <h2 class="text-white">จัดการข้อมูล : {{currentMission.name}}</h2>
                 <v-spacer></v-spacer>
-                <v-btn fab small text @click="dialog=false">
+                <v-btn dark fab small text @click="$router.go(-1)">
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </v-card-title>
-            <v-card-text v-if="response">
-                
-                    <v-tabs v-model="tabs" color="primary" slider-color="primary">
-                        <v-tab>
-                            ข้อมูลทั่วไป
-                        </v-tab>
-                        <v-tab-item>
-
-                            <v-select   v-model="plan.mission" :items="mission" item-text="name" item-value="id" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-select>
-                            <v-combobox v-model="plan.strategic" multiple :items="strategic" outlined placeholder="เลือกข้อมูล" label="ยุทธศาสตร์"></v-combobox>
-                            <v-text-field   v-model="plan.target_value" outlined placeholder="ระบุข้อมูล" label="ค่าเป้าหมาย"></v-text-field>
-                            <v-combobox v-model="plan.strategy" multiple :items="strategy" outlined placeholder="เลือกข้อมูล" label="กลยุทธ์"></v-combobox>
-                        </v-tab-item>
-                        <v-tab>
+            <v-card-text>
+                <v-stepper v-model="e1">
+                    <v-stepper-header>
+                        <v-stepper-step :complete="e1 > 1" step="1">
+                            ทั่วไป
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step :complete="e1 > 2" step="2">
                             ข้อมูลความเสี่ยง
-                        </v-tab>
-                        <v-tab-item>
-
-                            <div class="flex flex-row flex-wrap">
-                                <v-text-field v-model="risk.name" class="w-1/2" outlined dense label="ความเสี่ยง"></v-text-field>
-                                <v-combobox v-model="risk.sofceg" multiple :items="type" class="w-1/2" outlined dense label="ประเภทความเสี่ยง (S-O-F-C-E-G)" autocomplete></v-combobox>
-                            </div>
-
-                            <h2>สาเหตุ/ปัจจัยเสี่ยง</h2>
-                            <v-combobox v-model="risk.internal_cause" multiple :items="internal" outlined dense label="ปัจจัยภายใน"></v-combobox>
-                            <v-combobox v-model="risk.external_cause" multiple :items="external" outlined dense label="ปัจจัยภายนอก"></v-combobox>
-                            <v-text-field v-model="risk.effect_risk" outlined dense label="ผลกระทบของความเสี่ยง" autocomplete></v-text-field>
-
-                            <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field>
-
-                        </v-tab-item>
-                        <v-tab>
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step step="3">
                             ระดับความเสี่ยงปัจจุบัน
-                        </v-tab>
-                        <v-tab-item>
-                            <h2>ระดับความเสี่ยงปัจจุบัน</h2>
-                            <div class="flex flex-row flex-wrap">
-                                <v-text-field v-model="risk.l" class="w-5/12" outlined dense label="โอกาส"></v-text-field>
-                                <h2 class="w-2/12">
-                                    <center>X</center>
-                                </h2>
-                                <v-text-field v-model="risk.i" class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
-                            </div>
-                            <div class="flex flex-row flex-wrap">
-                                <v-text-field v-model="risk.li_score" readonly label="คะแนน" id="id"></v-text-field>
-                                <v-text-field v-model="risk.li_result" readonly label="ผล" id="id"></v-text-field>
-                            </div>
-                            <div class="flex flex-row flex-wrap">
-                                <h2 class="w-4/12">ระดับคะแนน</h2>
-                                <h2 class="w-4/12">โอกาส(L)</h2>
-                                <h2 class="w-4/12">ผลกระทบ(I)</h2>
-
-                                <v-text-field disabled class="w-3/12" outlined dense label="5"></v-text-field>
-                                <v-text-field v-model="risk.l5" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-                                <v-text-field v-model="risk.i5" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-
-                                <v-text-field disabled class="w-3/12" outlined dense label="4"></v-text-field>
-                                <v-text-field v-model="risk.l4" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-                                <v-text-field v-model="risk.i4" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-
-                                <v-text-field disabled class="w-3/12" outlined dense label="3"></v-text-field>
-                                <v-text-field v-model="risk.l3" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-                                <v-text-field v-model="risk.i3" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-
-                                <v-text-field disabled class="w-3/12" outlined dense label="2"></v-text-field>
-                                <v-text-field v-model="risk.l2" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-                                <v-text-field v-model="risk.i2" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-
-                                <v-text-field disabled class="w-3/12" outlined dense label="1"></v-text-field>
-                                <v-text-field v-model="risk.l1" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-                                <v-text-field v-model="risk.i1" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
-
-                            </div>
-                        </v-tab-item>
-                        <v-tab>
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step step="4">
                             มาตรการ
-                        </v-tab>
-                        <v-tab-item>
-                            <v-combobox v-model="risk.risk_management_measures" multiple :items="manage" outlined dense label="วิธีการ/มาตรการจัดการความเสี่ยง"></v-combobox>
-                            <v-combobox v-model="risk.kri" multiple :items="kri" outlined dense label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
-                            <v-text-field v-model="risk.response_date" type="date" outlined dense label="กําหนดเสร็จ"></v-text-field>
-                            <v-text-field v-model="risk.responsible" outlined dense label="ผู้รับผิดชอบ"></v-text-field>
-                        </v-tab-item>
-                        <v-tab>
+                        </v-stepper-step>
+                        <v-divider></v-divider>
+                        <v-stepper-step step="5">
                             การลงนาม
-                        </v-tab>
-                        <v-tab-item>
-                            <Draw />
-                        </v-tab-item>
-                    </v-tabs>
-              
-            </v-card-text>
-            <v-card-actions>
-                <div class="flex justify-end">
-                    <v-btn type="submit" class="float-right" color="primary">บันทึกข้อมูล</v-btn>
-                </div>
+                        </v-stepper-step>
+                    </v-stepper-header>
+                    <v-stepper-items>
+                        <v-stepper-content step="1">
+                            <div class="mt-2">
+                                <v-alert v-if="plan.mission && plan.strategic && plan.target_value && plan.strategy" dense border="left" type="success">
+                                    ท่านได้กรอกข้อมูลครบแล้ว กด <b>ถัดไป</b> เพื่อดำเนินการขั้นตอนต่อไป
+                                </v-alert>
+                                <v-alert v-else dense border="left" type="warning">
+                                    กรุณาระบุช้อมูลให้ครบถ้วน
+                                </v-alert>
 
-            </v-card-actions>
-        </v-card>   </form>
+                                <v-select v-model="plan.mission" :items="mission" item-text="name" item-value="id" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-select>
+                                <v-combobox chips  v-model="plan.strategic" multiple :items="strategic" outlined placeholder="เลือกข้อมูล" label="ยุทธศาสตร์"></v-combobox>
+                                <v-text-field v-model="plan.target_value" outlined placeholder="ระบุข้อมูล" label="ค่าเป้าหมาย"></v-text-field>
+                                <v-combobox chips  v-model="plan.strategy" multiple :items="strategy" outlined placeholder="เลือกข้อมูล" label="กลยุทธ์"></v-combobox>
+                            </div>
+
+                            <div class="float-right" v-if="plan.mission && plan.strategic && plan.target_value && plan.strategy">
+                                <v-btn color="primary" @click="e1=2">
+                                    ถัดไป <v-icon>mdi-arrow-right-thick</v-icon>
+                                </v-btn>
+                            </div>
+
+                        </v-stepper-content>
+
+                        <v-stepper-content step="2">
+
+                            <div class="mt-2">
+
+                                <v-alert v-if="risk.name && risk.sofceg && risk.internal_cause && risk.external_cause && risk.effect_risk" dense border="left" type="success">
+                                    ท่านได้กรอกข้อมูลครบแล้ว กด <b>ถัดไป</b> เพื่อดำเนินการขั้นตอนต่อไป
+                                </v-alert>
+                                <v-alert v-else dense border="left" type="warning">
+                                    กรุณาระบุช้อมูลให้ครบถ้วน
+                                </v-alert>
+
+                                <v-text-field v-model="risk.name" outlined dense label="ความเสี่ยง"></v-text-field>
+                                <v-combobox chips  v-model="risk.sofceg" multiple :items="type" outlined  label="ประเภทความเสี่ยง (S-O-F-C-E-G)" autocomplete></v-combobox>
+
+                                <h2 class="font-semibold">สาเหตุ/ปัจจัยเสี่ยง</h2><br>
+                                <v-combobox chips  v-model="risk.internal_cause" multiple :items="internal" outlined  label="ปัจจัยภายใน"></v-combobox>
+                                <v-combobox chips  v-model="risk.external_cause" multiple :items="external" outlined  label="ปัจจัยภายนอก"></v-combobox>
+                                <br>
+                                <h2 class="font-semibold">ผลกระทบ</h2><br>
+                                <v-combobox chips  v-model="risk.effect_risk" multiple :items="effect_risk" outlined  label="ผลกระทบของความเสี่ยง"></v-combobox>
+                                <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field>
+
+                            </div>
+
+                            <div class="float-right">
+                                <v-btn text color="primary" @click="e1=1">
+                                    <v-icon>mdi-arrow-left-thick</v-icon> ก่อนหน้า
+                                </v-btn>
+                                <v-btn color="primary" @click="e1=3" v-if="risk.name && risk.sofceg && risk.internal_cause && risk.external_cause && risk.effect_risk">
+                                    ถัดไป <v-icon>mdi-arrow-right-thick</v-icon>
+                                </v-btn>
+                            </div>
+                        </v-stepper-content>
+
+                        <v-stepper-content step="3">
+                            <div class="mt-2">
+                                <v-alert v-if="(Number(this.risk.li_score) <= 25) && risk.l5 && risk.l4 && risk.l3 && risk.l2 && risk.l1 && risk.i5 && risk.i4 && risk.i3 && risk.i2 && risk.i1 " dense border="left" type="success">
+                                    ท่านได้กรอกข้อมูลครบแล้ว กด <b>ถัดไป</b> เพื่อดำเนินการขั้นตอนต่อไป
+                                </v-alert>
+                                <v-alert v-else dense border="left" type="warning">
+                                    กรุณาระบุช้อมูลให้ครบถ้วน
+                                </v-alert>
+                                <h2 class="font-semibold">ระดับความเสี่ยงปัจจุบัน</h2>
+
+                                <div class="flex flex-wrap">
+                                    <div class="w-full">
+                                        <v-alert v-if="Number(this.risk.li_score) > 25" dense border="left" type="error">
+                                            ผลลัพธ์ห้ามเกิน <b>25</b>
+                                        </v-alert>
+                                    </div>
+                                    <div class="w-1/2 flex flex-row flex-wrap mt-3 p-3">
+
+                                        <v-text-field type="number" @input="calculateRate" v-model="risk.l" class="w-5/12" outlined dense label="โอกาส"></v-text-field>
+                                        <h2 class="w-2/12">
+                                            <center>X</center>
+                                        </h2>
+
+                                        <v-text-field type="number" @input="calculateRate" v-model="risk.i" class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
+                                    </div>
+                                    <div class="w-1/2 flex flex-col  justify-center item-center mt-2">
+                                        <h2 class="font-bold" :style="`color:${getRiskColor(Number(this.risk.li_score))}`">{{this.risk.li_rate}}</h2>
+                                        <h2 class="text-4xl">{{this.risk.li_score}}<span class="text-base text-gray-500">(โอกาส {{this.risk.l}} x ผลกระทบ {{this.risk.i}})</span></h2>
+                                        <v-progress-linear style="width:100%;" striped height="20" :buffer-value="100" :value="getRiskPercent(Number(this.risk.li_score))" :color="getRiskColor(Number(this.risk.li_score))"></v-progress-linear>
+                                        <h2 :style="`color:${getRiskColor(Number(this.risk.li_score))}`">{{this.risk.li_result}}</h2>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="mt-3" v-if="risk.l && risk.i && (Number(this.risk.li_score) <= 25)">
+                                    <h2 class="font-semibold">หลักเกณฑ์การประเมินระดับความเสี่ยง (โอกาสxผลกระทบ)</h2> <br>
+                                    <div class="flex flex-row flex-wrap">
+                                        <h2 class="w-4/12">ระดับคะแนน</h2>
+                                        <h2 class="w-4/12">โอกาส(L)</h2>
+                                        <h2 class="w-4/12">ผลกระทบ(I)</h2>
+
+                                        <v-text-field disabled class="w-3/12" outlined dense label="5"></v-text-field>
+                                        <v-text-field v-model="risk.l5" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                        <v-text-field v-model="risk.i5" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                        <v-text-field disabled class="w-3/12" outlined dense label="4"></v-text-field>
+                                        <v-text-field v-model="risk.l4" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                        <v-text-field v-model="risk.i4" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                        <v-text-field disabled class="w-3/12" outlined dense label="3"></v-text-field>
+                                        <v-text-field v-model="risk.l3" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                        <v-text-field v-model="risk.i3" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                        <v-text-field disabled class="w-3/12" outlined dense label="2"></v-text-field>
+                                        <v-text-field v-model="risk.l2" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                        <v-text-field v-model="risk.i2" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                        <v-text-field disabled class="w-3/12" outlined dense label="1"></v-text-field>
+                                        <v-text-field v-model="risk.l1" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+                                        <v-text-field v-model="risk.i1" class="w-4/12" outlined dense placeholder="ระบุข้อความ" label=""></v-text-field>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="float-right">
+                                <v-btn text color="primary" @click="e1=2">
+                                    <v-icon>mdi-arrow-left-thick</v-icon> ก่อนหน้า
+                                </v-btn>
+                                <v-btn color="primary" v-if="(Number(this.risk.li_score) <= 25) && risk.l5 && risk.l4 && risk.l3 && risk.l2 && risk.l1 && risk.i5 && risk.i4 && risk.i3 && risk.i2 && risk.i1 " @click="e1=4">
+                                    ถัดไป <v-icon>mdi-arrow-right-thick</v-icon>
+                                </v-btn>
+                            </div>
+                        </v-stepper-content>
+
+                        <v-stepper-content step="4">
+                            <div class="mt-2">
+                                <v-alert   v-if="risk.risk_management_measures && risk.kri && risk.response_date && risk.responsible" dense border="left" type="success">
+                                    ท่านได้กรอกข้อมูลครบแล้ว กด <b>ถัดไป</b> เพื่อดำเนินการขั้นตอนต่อไป
+                                </v-alert>
+                                <v-alert v-else dense border="left" type="warning">
+                                    กรุณาระบุช้อมูลให้ครบถ้วน
+                                </v-alert>
+                                <v-combobox chips  v-model="risk.risk_management_measures" multiple :items="manage" outlined  label="วิธีการ/มาตรการจัดการความเสี่ยง"></v-combobox>
+                                <v-combobox chips  v-model="risk.kri" multiple :items="kri" outlined   label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
+                                <v-text-field v-model="risk.responsible" outlined dense label="ผู้รับผิดชอบ"></v-text-field>
+                                <v-text-field v-model="risk.response_date" type="date" outlined dense label="กําหนดเสร็จ"></v-text-field>
+                            </div>
+                            <div class="float-right">
+                                <v-btn text color="primary" @click="e1=3">
+                                    <v-icon>mdi-arrow-left-thick</v-icon> ก่อนหน้า
+                                </v-btn>
+                                <v-btn color="primary" @click="e1=5" v-if="risk.risk_management_measures && risk.kri && risk.response_date && risk.responsible">
+                                    ถัดไป <v-icon>mdi-arrow-right-thick</v-icon>
+                                </v-btn>
+                            </div>
+                        </v-stepper-content>
+
+                        <v-stepper-content step="5">
+                            <div class="mt-2">
+                                <v-alert   v-if="plan.signature" dense border="left" type="success">
+                                   ลงนามความเสี่ยงนี้แล้ว
+                                </v-alert>
+                                <v-alert v-else dense border="left" type="warning">
+                                    ยังไม่มีผู้ลงนาม
+                                </v-alert>
+                                 <div class="flex flex-row flex-wrap p-2">
+                                <div class="w-1/2">
+                                   
+                                   <center> <h2 class="font-semibold">ลายมือชื่อ / ลายเซ็น</h2>
+                                       <Draw v-if="!plan.signature" /> 
+                                       <img class="mt-2" v-else :src="plan.signature" alt="">
+                                       </center> 
+                                </div>
+                                <div class="w-1/2 pt-3">
+                                   
+                                    <v-text-field :disabled="plan.signature" v-model="plan.sign" outlined dense label="ชื่อ-นามสกุล"></v-text-field>
+                                     <v-text-field :disabled="plan.signature" v-model="plan.position" outlined dense label="ตำแหน่ง"></v-text-field>
+                                    <v-text-field :disabled="plan.signature" v-model="plan.date" type="date"  outlined dense label="วันที่"></v-text-field>
+                                </div>
+                                 </div>
+                            </div>
+
+                            <div class="float-right">
+                                <div class="float-right">
+                                    <v-btn text color="primary" @click="e1=5">
+                                        <v-icon>mdi-arrow-left-thick</v-icon> ก่อนหน้า
+                                    </v-btn>
+                                    <v-btn @click="updatePlanRisk()" color="success" x-large>
+                                        <v-icon>mdi-floppy</v-icon> บันทึกข้อมูล
+                                    </v-btn>
+                                </div>
+                            </div>
+                        </v-stepper-content>
+
+                    </v-stepper-items>
+                </v-stepper> 
+            </v-card-text>
+        </v-card>
+
     </v-dialog>
 
 </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Core } from '../../store/core'
 import Draw from '../../components/app/Draw.vue'
 @Component({
     components: { Draw },
 })
 export default class RMPlan extends Vue {
+    private e1: number = 1
     private response: boolean = false;
     private plan: any = {};
     private risk: any = {};
     private dialog: boolean = true;
     private panel: any = [0, 1]
     private tabs: any = 1
+    private currentMission: any = null
 
     private mission: any = null
     private strategic: any = null
@@ -139,7 +261,7 @@ export default class RMPlan extends Vue {
     private kri: any = null
     private internal: any = null
     private external: any = null
-
+    private effect_risk: any = null
     private async created() {
         await this.loadChoice()
         await this.loadAll();
@@ -147,9 +269,10 @@ export default class RMPlan extends Vue {
 
     }
 
-    private async loadAll(){
+    private async loadAll() {
         await this.loadPlan();
-         await this.loadRisk();
+        await this.loadRisk();
+        await this.calculateRate();
     }
 
     private async loadChoice() {
@@ -162,6 +285,7 @@ export default class RMPlan extends Vue {
         this.kri = await Core.getChoiceValue('ดัชนีวัดความเสี่ยง')
         this.internal = await Core.getChoiceValue('ปัจจัยภายใน')
         this.external = await Core.getChoiceValue('ปัจจัยภายนอก')
+        this.effect_risk = await Core.getChoiceValue('ผลกระทบความเสี่ยง')
     }
 
     //    ('กลยุทธ์', 'กลยุทธ์'),
@@ -176,6 +300,8 @@ export default class RMPlan extends Vue {
         this.plan = await Core.getHttp(`api/default/rmplan/${this.$route.query.plan}`)
         this.plan.strategic = JSON.parse(this.plan.strategic)
         this.plan.strategy = JSON.parse(this.plan.strategy)
+        this.currentMission = await Core.getHttp(`api/default/mission/${this.plan.mission}`)
+
     }
 
     private async loadRisk() {
@@ -185,20 +311,94 @@ export default class RMPlan extends Vue {
         this.risk.external_cause = JSON.parse(this.risk.external_cause)
         this.risk.risk_management_measures = JSON.parse(this.risk.risk_management_measures)
         this.risk.kri = JSON.parse(this.risk.kri)
+        this.risk.effect_risk = JSON.parse(this.risk.effect_risk)
     }
 
     private async updatePlanRisk() {
+        let check = confirm('คุณแน่ใจใช่ไหมที่จะบันทึกข้อมูล โปรดตรวจสอบข้อมูลให้ระเอียดครบถ้วนก่อนบันทึกข้อมูล')
+        if(check){
+            if (!this.plan.signature) {
+            await this.convertSignToImage();
+        }
+
         this.plan.strategic = JSON.stringify(this.plan.strategic)
         this.plan.strategy = JSON.stringify(this.plan.strategy)
-        await Core.putHttp(`api/default/rmplan/${this.plan.id}/`, this.plan)
+        let xplan = await Core.putHttp(`api/default/rmplan/${this.plan.id}/`, this.plan)
 
         this.risk.sofceg = JSON.stringify(this.risk.sofceg)
         this.risk.internal_cause = JSON.stringify(this.risk.internal_cause)
         this.risk.external_cause = JSON.stringify(this.risk.external_cause)
         this.risk.risk_management_measures = JSON.stringify(this.risk.risk_management_measures)
         this.risk.kri = JSON.stringify(this.risk.kri)
-        await Core.putHttp(`/api/default/riskrm/${this.risk.id}/`, this.risk)
+        this.risk.effect_risk = JSON.stringify(this.risk.effect_risk)
+        let xrisk = await Core.putHttp(`/api/default/riskrm/${this.risk.id}/`, this.risk)
+        if(xplan.id && xrisk.id){
+            alert('บันทึกข้อมูลสำเร็จแล้ว')
+            await this.$router.go(-1)
+        }
+
         await this.loadAll();
+        }
+        
+    }
+
+    async calculateRate() {
+        this.risk.li_score = this.risk.i * this.risk.l
+        let data = this.getRiskType(this.risk.li_score)
+        this.risk.li_result = data.detail
+        this.risk.li_rate = data.rate
+
+    }
+
+    getRiskType(value: number) {
+        if (value >= 0 && value <= 2) {
+            return {
+                "rate": "น้อย",
+                "detail": "ระดับความเสี่ยงที่หน่วยงานยอมรับได้ ซึ่งอาจด าเนินการควบคุมภายในตามแผนงานที่มีอยู่เพื่อควบคุมหรือลดระดับความเสี่ยงให้หมดไป และป้องกันไม่ให้กลับเพิ่มสูงขึ้น"
+            }
+        } else if (value >= 3 && value <= 6) {
+            return {
+                "rate": "ปานกลาง",
+                "detail": "ระดับความเสี่ยงที่หน่วยงานสามารถยอมรับได้ แต่ต้องด าเนินการควบคุมภายในตามแผนงาน ที่มีอยู่อย่างต่อเนื่อง เพื่อให้ระดับความเสี่ยงลดน้อยลงและไม่กลับเพิ่มสูงขึ้น"
+            }
+        } else if (value >= 7 && value <= 12) {
+            return {
+                "rate": "สูง",
+                "detail": "ระดับความเสี่ยงที่หน่วยงานไม่สามารถยอมรับได้ ซึ่งต้องจัดหามาตรการในการป้องกันหรือ ลดความเสี่ยงโดยเร็ว เพื่อให้ระดับความเสี่ยงลดลงอยู่ในระดับที่ยอมรับได้และไม่กลับเพิ่มสูงขึ้น"
+            }
+        } else if (value >= 13 && value <= 25) {
+            return {
+                "rate": "สูงมาก",
+                "detail": "ระดับความเสี่ยงที่หน่วยงานไม่สามารถยอมรับได้ ซึ่งต้องจัดหามาตรการในการป้องกันหรือ ลดความเสี่ยงอย่างเร่งด่วน เพื่อให้ระดับความเสี่ยงลดลงอยู่ในระดับที่ยอมรับได้และไม่กลับเพิ่มสูงขึ้น"
+            }
+        } else {
+            return {
+                "rate": "ไม่ระบุ",
+                "detail": ""
+            }
+        }
+    }
+    getRiskColor(value: number) {
+          if (value >= 0 && value <= 2) {
+            return 'green'
+        } else if (value >= 3 && value <= 6) {
+            return '#c0b812'
+        } else if (value >= 7 && value <= 12) {
+            return 'orange'
+        } else if (value >= 13 && value <= 25) {
+            return 'red'
+        } else {
+            return 'blue'
+        }
+    }
+    getRiskPercent(value: number) {
+        return (value / 25) * 100
+    }
+
+    async convertSignToImage() {
+        let data: any = document.getElementById('myCanvas')
+        var dataURL = data.toDataURL();
+        this.plan.signature = dataURL
     }
 
 }

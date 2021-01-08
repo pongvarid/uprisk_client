@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.167",
+    "apexcharts": "^3.23.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
     "vue": "^2.6.11",
+    "vue-apexcharts": "^1.6.0",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.2.0",

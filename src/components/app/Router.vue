@@ -14,7 +14,7 @@
     <v-divider></v-divider>
 
     <v-list dense nav>
-        <v-list-item :class="($route.name ==item.name)?'bg-green-200':'' ||($route.query.state ==item.name)?'bg-green-200':'' " v-for="item in items" :key="item.title" v-if="item.enabled" link @click="$router.push(item.path)">
+        <v-list-item :class="($route.name ==item.name)?'bg-purple-200 shadow-xl':'' ||($route.query.state ==item.name)?'bg-purple-200 shadow-xl':'' " v-for="item in items" :key="item.title" v-if="item.enabled" link @click="$router.push(item.path)">
             <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -29,7 +29,7 @@
             </v-list-item-icon>
 
             <v-list-item-content>
-                <v-list-item-title>ออกจากระบบ</v-list-item-title>
+                <v-list-item-title @click="$router.push('/')">ออกจากระบบ</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
     </v-list>

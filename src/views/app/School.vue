@@ -5,7 +5,7 @@
         <li> <v-btn style="font-size:16px;" text small>คณะ</v-btn> </li> 
     </ul>
   <div class="p-3 mt-2">
- <h2 class="text-2xl">ข้อมูลความเสี่ยงของคณะ</h2> 
+ <h2 class="text-2xl font-semibold">ข้อมูลความเสี่ยงของคณะ</h2> 
  <p>เลือกคณะเพื่อดูหรือจัดการข้อมูล</p>
     <form @submit.prevent="loadAgency()" class="mt-2">
         <v-text-field @keyup="searchTimeOut()" v-model="search" placeholder="ระบุชื่อคณะ" label="ค้นหา" filled></v-text-field>

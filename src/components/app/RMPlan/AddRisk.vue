@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <v-btn @click="dialog=true" color="success">เพิ่มข้อมูล</v-btn>
+    <v-btn @click="dialog=true" color="primary"><v-icon>mdi-plus</v-icon>เพิ่มข้อมูล</v-btn>
     <v-dialog v-model="dialog" scrollable persistent :overlay="false" max-width="500px" transition="dialog-transition">
         <v-card>
             <v-card-title primary-title >
@@ -11,9 +11,9 @@
             <v-card-text v-if="response">
                 <form @submit.prevent="storeRMPLAN()" class="mt-2">
                     <v-select required v-model="form.mission" :items="mission" item-text="name" item-value="id" outlined placeholder="เลือกข้อมูล" label="การบริหารจัดการความเสี่ยงตามพันธกิจ"></v-select>
-                    <v-combobox   v-model="form.strategic"  multiple :items="strategic" outlined placeholder="เลือกข้อมูล" label="ยุทธศาสตร์"></v-combobox>
+                    <v-combobox chips   v-model="form.strategic"  multiple :items="strategic" outlined placeholder="เลือกข้อมูล" label="ยุทธศาสตร์"></v-combobox>
                     <v-text-field required v-model="form.target_value"  outlined placeholder="ระบุข้อมูล" label="ค่าเป้าหมาย"></v-text-field>
-                    <v-combobox   v-model="form.strategy"  multiple :items="strategy" outlined placeholder="เลือกข้อมูล" label="กลยุทธ์"></v-combobox> 
+                    <v-combobox chips  v-model="form.strategy"  multiple :items="strategy" outlined placeholder="เลือกข้อมูล" label="กลยุทธ์"></v-combobox> 
                     <v-btn type="submit" class="float-right" color="primary">บันทึกข้อมูล</v-btn>
                 </form>
             </v-card-text>

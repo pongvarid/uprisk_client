@@ -9,7 +9,7 @@
                     <p>ใช้บัญชี Microsotft 365 ของมหาวิทยาลัยพะเยา ในการเข้าใช้งานระบบ</p>
                     <br />
  <hr class="border-gray-400 w-full"><br />
-                    <v-btn x-large dark color="#e17100">
+                    <v-btn @click="getLogin()" x-large dark color="#e17100">
                         <v-icon>mdi-microsoft</v-icon>&nbsp;เข้าสู่ระบบด้วย Microsoft
                         365
                     </v-btn><br /> 
@@ -23,7 +23,7 @@
 
                 <div v-if="tab == 1">
                     <div class="md:p-12">
-                        <form @submit.prevent="getLogin"> 
+                        <form @submit.prevent="getLogin()"> 
                     <h2 class="text-2xl">ระบบ บริหารจัดการความเสี่ยงและควบคุมภายใน</h2>
                     <p>เข้าสู่ระบบโดยใช้ ชื่อผู้ใช้ และ รหัสผ่าน</p>
                     <br />  <hr class="border-gray-400 w-full"><br /> 
@@ -88,7 +88,9 @@ export default class Test extends Vue {
         username: "root",
         password: "Pautn1611",
     };
-    private async getLogin() {}
+    private async getLogin() {
+        await this.$router.push('/app/')
+    }
     async created() {}
     async ChangeTo(val: string) {
         this.switchc = val;

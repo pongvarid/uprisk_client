@@ -51,11 +51,11 @@
                         <v-tab-item>
                             <h2>ระดับความเสี่ยงปัจจุบัน</h2>
                             <div class="flex flex-row flex-wrap">
-                                <v-text-field class="w-5/12" outlined dense label="โอกาส"></v-text-field>
+                                <v-text-field @input="calculateRate" class="w-5/12" outlined dense label="โอกาส"></v-text-field>
                                 <h2 class="w-2/12">
                                     <center>X</center>
                                 </h2>
-                                <v-text-field class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
+                                <v-text-field @input="calculateRate" class="w-5/12" outlined dense label="ผลกระทบ" autocomplete></v-text-field>
                             </div>
                             <div class="flex flex-row flex-wrap">
                                 <v-text-field readonly label="คะแนน" id="id"></v-text-field>
@@ -129,17 +129,42 @@ export default class RMPlan extends Vue {
     private response: boolean = false;
     private dialog: boolean = true;
     private panel: any = [0, 1]
-    private tabs: any = 1
-    private test:any =[
-  "a",
-  "b",
-  "c",
-  "asas"
-]
+    private tabs: any = 1 
     private async created() {
 
         this.response = true;
 
+    }
+
+    calculateRate(){
+        
+    }
+    
+    getRiskType(value: number) {
+        if (value >= 0 && value <= 2) {
+            return 'green'
+        } else if (value >= 3 && value <= 6) {
+            return 'yellow'
+        } else if (value >= 7 && value <= 12) {
+            return 'orange'
+        } else if (value >= 13 && value <= 25) {
+            return 'red'
+        } else {
+            return 'blue'
+        }
+    }
+     getRiskColor(value: number) {
+        if (value >= 0 && value <= 2) {
+            return 'green'
+        } else if (value >= 3 && value <= 6) {
+            return 'yellow'
+        } else if (value >= 7 && value <= 12) {
+            return 'orange'
+        } else if (value >= 13 && value <= 25) {
+            return 'red'
+        } else {
+            return 'blue'
+        }
     }
 
 }

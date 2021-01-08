@@ -28,7 +28,7 @@
                 <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
 
-            <v-list-item-content>
+            <v-list-item-content @click="$router.push('/')">
                 <v-list-item-title @click="$router.push('/')">ออกจากระบบ</v-list-item-title>
             </v-list-item-content>
         </v-list-item>

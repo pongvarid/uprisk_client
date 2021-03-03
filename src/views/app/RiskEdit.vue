@@ -2,7 +2,7 @@
 <div>
 
     <v-dialog v-model="dialog" scrollable persistent fullscreen transition="dialog-transition">
-        <v-card>
+        <v-card v-if="dialog">
             <v-card-title class="title-bg">
                 <h2 class="text-white">จัดการข้อมูล : {{currentMission.name}}</h2>
                 <v-spacer></v-spacer>
@@ -76,6 +76,7 @@
                                 <v-combobox chips  v-model="risk.external_cause" multiple :items="external" outlined  label="ปัจจัยภายนอก"></v-combobox>
                                 <br>
                                 <h2 class="font-semibold">ผลกระทบ</h2><br>
+
                                 <v-combobox chips  v-model="risk.effect_risk" multiple :items="effect_risk" outlined  label="ผลกระทบของความเสี่ยง"></v-combobox>
                                 <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field>
 
@@ -173,9 +174,26 @@
                                 <v-alert v-else dense border="left" type="warning">
                                     กรุณาระบุช้อมูลให้ครบถ้วน
                                 </v-alert>
-                                <v-combobox chips  v-model="risk.risk_management_measures" multiple :items="manage" outlined  label="วิธีการ/มาตรการจัดการความเสี่ยง"></v-combobox>
-                                <v-combobox chips  v-model="risk.kri" multiple :items="kri" outlined   label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
-                                <v-text-field v-model="risk.responsible" outlined dense label="ผู้รับผิดชอบ"></v-text-field>
+
+
+                              <div class="flex flex-col md:flex-row ">
+                                <div class="w-full md:w-1/2">
+                                  <h2 class="font-semibold">ผลกระทบที่สร้างไว้</h2>
+                                  <v-timeline dense v-for="risk_data,i in risk.effect_risk" :index="i">
+                                    <v-timeline-item small>
+                                      {{risk_data}}
+                                      </v-timeline-item>
+                                  </v-timeline>
+                                </div>
+                                <div class="w-full md:w-1/2">
+                                  <v-combobox class="flex flex-col"  chips  v-model="risk.risk_management_measures" multiple :items="manage" outlined  label="วิธีการ/มาตรการจัดการความเสี่ยง อื่นๆ (เรียงตามผลกระทบที่สร้างไว้)"></v-combobox>
+
+                                </div>
+                              </div>
+                              <br>
+                              <v-combobox chips  v-model="risk.kri" multiple :items="kri" outlined   label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
+
+                               <v-text-field v-model="risk.responsible" outlined dense label="ผู้รับผิดชอบ"></v-text-field>
                                 <v-text-field v-model="risk.response_date" type="date" outlined dense label="กําหนดเสร็จ"></v-text-field>
                             </div>
                             <div class="float-right">
@@ -215,7 +233,7 @@
 
                             <div class="float-right">
                                 <div class="float-right">
-                                    <v-btn text color="primary" @click="e1=5">
+                                    <v-btn text color="primary" @click="e1=4">
                                         <v-icon>mdi-arrow-left-thick</v-icon> ก่อนหน้า
                                     </v-btn>
                                     <v-btn @click="updatePlanRisk()" color="success" x-large>
@@ -262,6 +280,7 @@ export default class RMPlan extends Vue {
     private internal: any = null
     private external: any = null
     private effect_risk: any = null
+    private effect_risk_value:any = []
     private async created() {
         await this.loadChoice()
         await this.loadAll();
@@ -403,3 +422,15 @@ export default class RMPlan extends Vue {
 
 }
 </script>
+
+<style>
+#inspire > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__text > div > div.v-stepper__items > div:nth-child(4) > div > div.mt-2 > div.flex.flex-col.md\:flex-row > div:nth-child(2) > div > div > div.v-input__slot > div.v-select__slot > div.v-select__selections{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: flex-start!important;
+  align-items: start;
+
+
+}
+</style>

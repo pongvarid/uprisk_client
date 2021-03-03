@@ -92,6 +92,7 @@
                             มาตรการ
                         </v-tab>
                         <v-tab-item>
+
                             <v-combobox outlined dense label="วิธีการ/มาตรการจัดการความเสี่ยง"></v-combobox>
                             <v-combobox outlined dense label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
                             <v-text-field type="date"  outlined dense label="กําหนดเสร็จ"></v-text-field>

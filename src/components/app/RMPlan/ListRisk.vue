@@ -121,7 +121,7 @@ export default class RMPlan extends Vue {
     }
 
     private async loadPlan() {
-        this.plans = await Core.getHttp(`/api/default/planfull/`)
+        this.plans = await Core.getHttp(`/api/default/plan/all/`)
     }
 
     getRiskPercent(value: number) {

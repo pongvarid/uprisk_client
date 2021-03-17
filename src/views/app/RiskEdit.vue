@@ -125,7 +125,8 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div class="mt-3" v-if="risk.l && risk.i && (Number(this.risk.li_score) <= 25)">
+                                <div class="mt-3" v-if="risk.l && risk.i && (Number(this.risk.li_score) <= 25)"
+                                     :style="`background-color:${getRiskColorBG(Number(this.risk.li_score))}`" >
                                     <h2 class="font-semibold">หลักเกณฑ์การประเมินระดับความเสี่ยง (โอกาสxผลกระทบ)</h2> <br>
                                     <div class="flex flex-row flex-wrap">
                                         <h2 class="w-4/12">ระดับคะแนน</h2>
@@ -179,7 +180,7 @@
                               <div class="flex flex-col md:flex-row ">
                                 <div class="w-full md:w-1/2">
                                   <h2 class="font-semibold">ผลกระทบที่สร้างไว้</h2>
-                                  <v-timeline dense v-for="risk_data,i in risk.effect_risk" :index="i">
+                                  <v-timeline dense v-for="risk_data , vindex in risk.effect_risk" :key="vindex">
                                     <v-timeline-item small>
                                       {{risk_data}}
                                       </v-timeline-item>
@@ -397,6 +398,20 @@ export default class RMPlan extends Vue {
             }
         }
     }
+
+  getRiskColorBG(value: number) {
+    if (value >= 0 && value <= 2) {
+      return '#ccffcc'
+    } else if (value >= 3 && value <= 6) {
+      return '#ffffcc'
+    } else if (value >= 7 && value <= 12) {
+      return '#ffc299'
+    } else if (value >= 13 && value <= 25) {
+      return '#ffcccc'
+    } else {
+      return '#b3ecff'
+    }
+  }
     getRiskColor(value: number) {
           if (value >= 0 && value <= 2) {
             return 'green'

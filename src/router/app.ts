@@ -57,6 +57,12 @@ const AppRouter:any  = [
         enabled:false,
         component: getView('RiskEdit')
     },
+    {
+        path: 'r6/edit',
+        name: 'r6edit',
+        enabled:false,
+        component: getView('RMR6Edit')
+    },
     
 ]
 

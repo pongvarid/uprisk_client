@@ -11,6 +11,8 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">  
     <link rel="stylesheet" href="./assets/fonts/stylesheet.css">
+    <link rel="stylesheet" href="https://unpkg.com/freezeframe@3.0.10/build/css/freezeframe_styles.min.css">
+    <script type="text/javascript" src="https://unpkg.com/freezeframe@3.0.10/build/js/freezeframe.pkgd.min.js"></script>
     <style>
 
      
@@ -62,6 +64,13 @@ background: linear-gradient(90deg, rgba(69,63,166,1) 0%, rgba(0,212,255,1) 100%)
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+
+    <script>
+      new Freezeframe('.freezeframe1', {
+  trigger: 'hover',
+  overlay: false
+});
+    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>

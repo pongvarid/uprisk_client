@@ -10,6 +10,10 @@
                 </v-btn>
             </v-card-title>
             <v-card-text>
+
+                <img class="freezeframe1" src="https://cdn.dribbble.com/users/2869924/screenshots/6763676/4.gif" /> 
+
+
                 <v-stepper v-model="e1">
                     <v-stepper-header>
                         <v-stepper-step :complete="e1 > 1" step="1">
@@ -74,10 +78,10 @@
                                 <v-combobox chips v-model="risk.internal_cause" multiple :items="internal" outlined label="ปัจจัยภายใน"></v-combobox>
                                 <v-combobox chips v-model="risk.external_cause" multiple :items="external" outlined label="ปัจจัยภายนอก"></v-combobox>
                                 <br>
-                                <h2 class="font-semibold">ผลกระทบ</h2><br>
+                                <h2 class="font-semibold">การควบคุม</h2><br>
 
-                                <v-combobox chips v-model="risk.effect_risk" multiple :items="effect_risk" outlined label="ผลกระทบของความเสี่ยง"></v-combobox>
                                 <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field>
+                          
 
                             </div>
 
@@ -101,22 +105,35 @@
                                 </v-alert>
 
                                 <div class="flex flex-col md:flex-row ">
-                                    <div class="w-full md:w-1/2">
-                                        <h2 class="font-semibold">ผลกระทบที่สร้างไว้</h2>
-                                        <v-timeline dense v-for="risk_data , vindex in risk.effect_risk" :key="vindex">
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <h2 class="font-semibold">ผลกระทบ</h2>
+                                        <v-combobox chips v-model="risk.effect_risk" multiple :items="effect_risk" outlined label="ผลกระทบของความเสี่ยง"></v-combobox>
+
+                                        <!-- <v-timeline dense v-for="risk_data , vindex in risk.effect_risk" :key="vindex">
                                             <v-timeline-item small>
                                                 {{risk_data}}
                                             </v-timeline-item>
-                                        </v-timeline>
+                                        </v-timeline> -->
                                     </div>
-                                    <div class="w-full md:w-1/2">
+                                    <div class="w-full md:w-1/2 p-2">
+                                        <h2 class="font-semibold">มาตรการจัดการ</h2>
                                         <v-combobox class="flex flex-col" chips v-model="risk.risk_management_measures" multiple :items="manage" outlined label="วิธีการ/มาตรการจัดการความเสี่ยง อื่นๆ (เรียงตามผลกระทบที่สร้างไว้)"></v-combobox>
 
                                     </div>
                                 </div>
                                 <br>
-                                <v-combobox chips v-model="risk.kri" multiple :items="kri" outlined label="ดัชนีชี้วัดความเสี่ยง(KRI)"></v-combobox>
+                                <h2 class="font-semibold">KRI </h2>
+                                  <div class="flex flex-col md:flex-row ">
+                                    <div class="w-full md:w-1/2 p-2">
+                                             <v-combobox chips v-model="risk.kri" multiple :items="kri" outlined label="ตัวชี้วัด"></v-combobox>
+                                    </div>
+                                    <div class="w-full md:w-1/2 p-2">
+                                       <v-combobox chips v-model="risk.kri" multiple :items="kri" outlined label="เป้าหมาย"></v-combobox>
 
+                                    </div>
+                                </div>
+                          
+                              
                                 <v-text-field v-model="risk.responsible" outlined dense label="ผู้รับผิดชอบ"></v-text-field>
                                 <v-text-field v-model="risk.response_date" type="date" outlined dense label="กําหนดเสร็จ"></v-text-field>
                             </div>
@@ -437,12 +454,12 @@ export default class RMPlan extends Vue {
 </script>
 
 <style>
-#inspire>div.v-dialog__content.v-dialog__content--active>div>div>div.v-card__text>div>div.v-stepper__items>div:nth-child(4)>div>div.mt-2>div.flex.flex-col.md\:flex-row>div:nth-child(2)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections {
+/* #inspire>div.v-dialog__content.v-dialog__content--active>div>div>div.v-card__text>div>div.v-stepper__items>div:nth-child(4)>div>div.mt-2>div.flex.flex-col.md\:flex-row>div:nth-child(2)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections {
     display: flex;
     flex-direction: column;
     text-align: left;
     justify-content: flex-start !important;
     align-items: start;
 
-}
+} */
 </style>

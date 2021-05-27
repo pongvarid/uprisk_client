@@ -81,7 +81,7 @@
                                 <h2 class="font-semibold">การควบคุม</h2><br>
 
                                 <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field>
-                                <v-text-field v-model="risk.existing_manager" outlined dense label="วิธีการ"></v-text-field>
+                          
 
                             </div>
 

@@ -4,7 +4,7 @@
         <Router />
     </v-navigation-drawer>
 
-    <v-app-bar app class="bg-nav" dark>
+    <v-app-bar app class="bg-nav" dark dense>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>ระบบจัดการความเสี่ยง</v-toolbar-title>
     </v-app-bar>

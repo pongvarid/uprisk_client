@@ -1,5 +1,6 @@
 <template>
 <div class="p-6 mt-2">
+  
     <center>
         <h2 class="text-2xl font-bold">{{risk.name}} (RM-Plan )</h2>
         <h2>รายงานผลการดำาเนินงานตามแผนบริหารจัดการความเสี่ยงและควบคุมภายใน</h2>

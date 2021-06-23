@@ -6,7 +6,7 @@
         <h2>อ้างอิง (KRI) จาก RM-Plan ก่อนหน้า</h2>
         <div class="flex mt-2 ml-4">
             <div class="w-1/2">
-              <v-timeline dense v-for="kri,iex in kris" :key="iex">
+                <v-timeline dense v-for="kri,iex in kris" :key="iex">
                     <v-timeline-item color="purple" small >
                         <h2 class="font-bold">ตัวชี้วัด : {{kri.head}}</h2>
                         <div  :class="(radioGroup[iex] == '0')?`bg-red-200 p-2`:`bg-green-100 p-2`">
@@ -41,8 +41,8 @@ export default {
     },
     data: () => {
         return ({
-            row: null,
             radioGroup:[],
+            row: null,
             kris: [{
                     'head': 'ทดสอบ',
                     'text': 'ทดสอบ',

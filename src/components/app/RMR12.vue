@@ -15,8 +15,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Core } from '../../store/core'
 
-import AddRisk from './RMR6/AddRisk.vue'
-import ListRisk from './RMR6/ListRisk.vue'
+import AddRisk from './RMR12/AddRisk.vue'
+import ListRisk from './RMR12/ListRisk.vue'
 
 @Component({
   components: {   AddRisk,ListRisk },

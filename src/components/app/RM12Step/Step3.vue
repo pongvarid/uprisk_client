@@ -9,7 +9,8 @@
                 <v-combobox chips v-model="risk.external_cause" multiple :items="external" outlined label="ปัจจัยภายนอก"></v-combobox>
 
                 <!-- <h2 class="font-semibold">การควบคุม</h2><br>
-                <v-text-field v-model="risk.existing_control" outlined dense label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-text-field> -->
+                <v-combobox chips multiple outlined placeholder=" " label="การควบคุมที่มีอยู่ในปัจจุบัน"></v-combobox> -->
+
             </div>
             <div class="w-1/2 flex flex-col justify-center  items-center h-auto">
                 <img class="h-60" src="/rm6/result2.png" alt="">
@@ -23,8 +24,9 @@
         <div class="flex mt-2 ml-4">
             <div class="w-1/2">
                 <form @submit.prevent="addRisks()" class="flex">
-                    <v-text-field required outlined   class="m-1" dense v-model="form.result"  label="ผลการทบ" id="id"></v-text-field>
+                    <v-text-field required outlined class="m-1" dense v-model="form.result" label="ผลการทบ" id="id"></v-text-field> 
                     <v-combobox required outlined class="m-1 ml-2" chips multiple dense filled placeholder=" " v-model="form.manage"  label="มาตรกรจัดการความเสี่ยง"></v-combobox>
+
                     <v-btn class="m-1" type="submit" small color="success"> + เพิ่ม</v-btn>
                 </form>
 
@@ -33,7 +35,7 @@
                         <h2 class="font-bold">{{res.result}}</h2>
                         <div>
                             <h2>มาตรการ : {{res.manage}} </h2>
-                             
+
                         </div>
                     </v-timeline-item>
 

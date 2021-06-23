@@ -1,7 +1,7 @@
 <template>
 <div class="p-6 mt-2">
     <center>
-        <h2 class="text-2xl font-bold">{{risk.name}} (RM6 รอบ 6 เดือน )</h2>
+        <h2 class="text-2xl font-bold">{{risk.name}} (RM12 รอบ 12 เดือน )</h2>
         <h2>รายงานผลการดำาเนินงานตามแผนบริหารจัดการความเสี่ยงและควบคุมภายใน</h2>
     </center>
     <br> <br>
@@ -19,19 +19,19 @@
         <v-tab-item>
             <Step2 :risk="risk" :plan="plan" />
         </v-tab-item>
-      
-        <v-tab>
+           <v-tab>
             ดัชนีชี้วัดความเสี่ยง
         </v-tab>
         <v-tab-item>
             <Step4 :risk="risk" :plan="plan" />
         </v-tab-item>
-          <v-tab>
+        <v-tab>
             ความเสี่ยงเพิ่มเติม
         </v-tab>
         <v-tab-item>
             <Step3 :risk="risk" :plan="plan" />
         </v-tab-item>
+     
          <v-tab>
             ระดับความเสี่ยง
         </v-tab>
@@ -56,12 +56,12 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Core } from '../../store/core'
 import Risk from '@/components/app/RMR6/Risk.vue'
 import Draw from '../../components/app/Draw.vue'
-import Step1 from '@/components/app/RM6Step/Step1.vue'
-import Step2 from '@/components/app/RM6Step/Step2.vue'
-import Step3 from '@/components/app/RM6Step/Step3.vue'
-import Step4 from '@/components/app/RM6Step/Step4.vue'
-import Step5 from '@/components/app/RM6Step/Step5.vue'
-import Step6 from '@/components/app/RM6Step/Step6.vue'
+import Step1 from '@/components/app/RM12Step/Step1.vue'
+import Step2 from '@/components/app/RM12Step/Step2.vue'
+import Step3 from '@/components/app/RM12Step/Step3.vue'
+import Step4 from '@/components/app/RM12Step/Step4.vue'
+import Step5 from '@/components/app/RM12Step/Step5.vue'
+import Step6 from '@/components/app/RM12Step/Step6.vue'
 @Component({
     components: { Draw, Risk, Step1, Step2, Step3, Step4, Step5 ,Step6},
 })

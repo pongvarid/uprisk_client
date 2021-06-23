@@ -1,53 +1,98 @@
 <template>
-<div class="p-6 mt-2">
-    <center>
-        <h2 class="text-2xl font-bold">{{risk.name}} (RM6 รอบ 6 เดือน )</h2>
-        <h2>รายงานผลการดำาเนินงานตามแผนบริหารจัดการความเสี่ยงและควบคุมภายใน</h2>
-    </center>
-    <br> <br>
+<div>
 
-    <v-tabs vertical>
+    <v-tabs color="primary" dark slider-color="primary">
         <v-tab>
-            ข้อมูลความเสี่ยง
+            RM1
         </v-tab>
         <v-tab-item>
-            <Step1 :risk="risk" :plan="plan" />
+            <v-dialog v-model="dialog" scrollable fullscreen persistent :overlay="false" max-width="500px" transition="dialog-transition">
+                <v-card>
+                    <div class="p-6">
+                        <center>
+                            <h2 class="ff text-xl  font-bold">แผนการจัดการความเสี่ยงและควบคุมภายใน (RM-Plan) ประจำปีงบประมาณ 2564</h2>
+                        </center><br>
+                        <center>
+                            <h2 class="ff text-base "><span class="ff font-bold">ชื่อหน่วยงาน </span> กองแผนงาน</h2>
+                        </center><br><br>
+                        <div class="flex justify-center items-center">
+                            <span class="ff font-bold">การบริหารจัดการความเสี่ยงตามพันธกิจ</span>
+                            <v-combobox class="ml-2 ff text-base " v-model="plan.mission.name" :items="mission" item-text="name" item-value="id"></v-combobox>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <span class="ff font-bold">ยุทธศาสตร์</span>
+                            <v-combobox class="ml-2 ff text-base " v-model="plan.strategic" multiple :items="strategic" item-text="name" item-value="id"></v-combobox>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <span class="ff font-bold">ค่าเป้าหมาย</span>
+                            <v-text-field class="ml-2 ff text-base " v-model="plan.target_value" item-text="name" item-value="id"></v-text-field>
+                        </div>
+                        <div class="flex justify-center items-center">
+                            <span class="ff font-bold">กลยุทธ์</span>
+                            <v-combobox class="ml-2 ff text-base " v-model="plan.strategy" multiple :items="strategy"></v-combobox>
+                        </div>
+
+                        <table class="w-full">
+                            <tbody class="w-full">
+                                <tr class="w-full">
+                                    <td>ลำดับ</td>
+                                    <td>ความเสี่ยง</td>
+                                    <td>ประเภทความเสี่ยง</td>
+                                    <td>สาเหตุ</td>
+                                    <td>ผลกระทบของความเสี่ยง</td>
+                                    <td>การควบคุมที่มีอยู่ในปัจจุบัน</td>
+                                    <td>ระดับความเสี่ยงปัจจุบัน</td>
+                                    <td>วิธีการ/มาตรการจัดการความเสี่ยง</td>
+                                    <td>ดัชนีชี้วัดความเสี่ยง(KRI)</td>
+                                    <td>ผู้รับผิดชอบ</td>
+                                </tr>
+                                <tr class="w-full">
+                                    <td>
+                                        1
+                                    </td>
+                                    <td> {{risk.name}} </td>
+                                    <td> <span class="ff" v-for="d,i in risk.sofceg" :key="i">{{d}}</span> </td>
+                                    <td style="width:20%;">
+                                        ภายใน <span class="ff" v-for="d,i in risk.internal_cause" :key="i"><br>- {{d}} <br></span><br><br>
+                                        ภายนอก <span class="ff" v-for="d,i in risk.external_cause" :key="i"><br>- {{d}} <br></span>
+                                    </td>
+                                    <td> <span class="ff" v-for="d,i in risk.effect_risk" :key="i">{{d}}</span> </td>
+                                    <td> {{risk.existing_control }} </td>
+                                    <td>{{risk.l}} x {{risk.i}} = {{risk.li_score}} </td>
+                                    <td><span class="ff" v-for="d,i in risk.risk_management_measures" :key="i">{{d}}</span> </td>
+                                    <td> <span class="ff" v-for="d,i in risk.kri" :key="i">{{d}}</span> </td>
+                                    <td style="width:10%;"> นายพงษ์วริษฐ์ มณีวรรณ์</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="flex flex-row">
+                            <div class="w-3/4"></div>
+                            <div class="w-1/4"><br><br>
+                                <h2 class="ff">ลายมือชื่อ...................................</h2>
+                                <h2 class="ff">(..........................................)</h2>
+                                <h2 class="ff">ตำแหน่ง...................................</h2>
+                                <h2 class="ff">วัน.........เดือน.............ปี..........</h2>
+                            </div>
+                        </div>
+                        <v-btn @click="print" color="success">text</v-btn>
+
+                    </div>
+                </v-card>
+            </v-dialog>
         </v-tab-item>
         <v-tab>
-            การดำเนินการ
+            RM6
         </v-tab>
         <v-tab-item>
-            <Step2 :risk="risk" :plan="plan" />
+
         </v-tab-item>
-      
         <v-tab>
-            ดัชนีชี้วัดความเสี่ยง
+            RM12
         </v-tab>
         <v-tab-item>
-            <Step4 :risk="risk" :plan="plan" />
-        </v-tab-item>
-          <v-tab>
-            ความเสี่ยงเพิ่มเติม
-        </v-tab>
-        <v-tab-item>
-            <Step3 :risk="risk" :plan="plan" />
-        </v-tab-item>
-         <v-tab>
-            ระดับความเสี่ยง
-        </v-tab>
-        <v-tab-item>
-            <Step5 :risk="risk" :plan="plan" />
-        </v-tab-item>
-          <v-tab>
-            การลงนาม
-        </v-tab>
-        <v-tab-item>
-            <Step6 :risk="risk" :plan="plan" />
+
         </v-tab-item>
     </v-tabs>
-
-    <!-- <pre>{{plan}}</pre> -->
-
 </div>
 </template>
 
@@ -56,16 +101,17 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { Core } from '../../store/core'
 import Risk from '@/components/app/RMR6/Risk.vue'
 import Draw from '../../components/app/Draw.vue'
-import Step1 from '@/components/app/RM6Step/Step1.vue'
-import Step2 from '@/components/app/RM6Step/Step2.vue'
-import Step3 from '@/components/app/RM6Step/Step3.vue'
-import Step4 from '@/components/app/RM6Step/Step4.vue'
-import Step5 from '@/components/app/RM6Step/Step5.vue'
-import Step6 from '@/components/app/RM6Step/Step6.vue'
+import Step1 from '@/components/app/RM12Step/Step1.vue'
+import Step2 from '@/components/app/RM12Step/Step2.vue'
+import Step3 from '@/components/app/RM12Step/Step3.vue'
+import Step4 from '@/components/app/RM12Step/Step4.vue'
+import Step5 from '@/components/app/RM12Step/Step5.vue'
+import Step6 from '@/components/app/RM12Step/Step6.vue'
 @Component({
-    components: { Draw, Risk, Step1, Step2, Step3, Step4, Step5 ,Step6},
+    components: { Draw, Risk, Step1, Step2, Step3, Step4, Step5, Step6 },
 })
 export default class RMPlan extends Vue {
+ 
     private e1: number = 1
     private response: boolean = false;
     private plan: any = {};
@@ -240,6 +286,12 @@ export default class RMPlan extends Vue {
         this.plan.signature = dataURL
     }
 
+    async print() {
+        this.pp = false
+        window.print();
+
+    }
+
 }
 </script>
 
@@ -251,5 +303,35 @@ export default class RMPlan extends Vue {
     justify-content: flex-start !important;
     align-items: start;
 
+}
+
+#inspire>div>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(6)>div>div>div.v-input__slot>div.v-select__slot>input[type=hidden]:nth-child(3) {
+    font-family: 'Niramit', sans-serif !important;
+}
+
+#inspire>div.v-application--wrap>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(7)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections>div {
+    font-family: 'Niramit', sans-serif !important;
+}
+
+#inspire>div.v-application--wrap>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(9)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections>div {
+    font-family: 'Niramit', sans-serif !important;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-family: 'Niramit', sans-serif !important;
+    font-weight: bold;
+    font-size: 12px !important;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    font-family: 'Niramit', sans-serif !important;
+    font-size: 12px !important;
 }
 </style>

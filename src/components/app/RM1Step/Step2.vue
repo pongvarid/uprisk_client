@@ -24,7 +24,7 @@
             <div class="w-1/2">
                 <form @submit.prevent="addRisks()" class="flex">
                     <v-text-field required outlined   class="m-1" dense v-model="form.result"  label="ผลการทบ" id="id"></v-text-field>
-                    <v-text-field required outlined  class="m-1 ml-2" dense v-model="form.manage" label="มาตรกรจัดการความเสี่ยง" id="id"></v-text-field>
+                    <v-combobox required outlined class="m-1 ml-2" chips multiple dense filled placeholder=" " v-model="form.manage"  label="มาตรกรจัดการความเสี่ยง"></v-combobox>
                     <v-btn class="m-1" type="submit" small color="success"> + เพิ่ม</v-btn>
                 </form>
 
@@ -61,7 +61,7 @@ export default {
     data: () => {
         return ({
             row: null,
-            results: ['ได้รับการแก้ไขแล้ว', 'ยังไม่ได้ดำเนินการ', 'ยกเลิก'],
+            results: ['ได้รับการแก้ไขแล้ว', 'ยังไม่ได้ดำเนินการ', 'กำลังดำเนินการ','ยกเลิก'],
             risks: [{
                     'result': 'ทดสอบ',
                     'manage': 'ทดสอบ',

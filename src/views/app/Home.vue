@@ -54,7 +54,7 @@
                     </v-card-title>
                     <img class="w-60" src="/gif/ss.gif" alt="">
                     <v-card-actions>
-                        <v-btn @click="$router.push('/app/risk?agency=1&year=1&state=agency')" outlined class="w-full h-full" color="success">จัดการ</v-btn>
+                        <v-btn @click="$router.push('/app/report?plan=1&risk=1')" outlined class="w-full h-full" color="success">จัดการ</v-btn>
                     </v-card-actions>
                 </v-card>
 

@@ -17,8 +17,9 @@
                         </center><br><br>
                         <div class="flex justify-center items-center">
                             <span class="ff font-bold">การบริหารจัดการความเสี่ยงตามพันธกิจ</span>
-                            <v-combobox class="ml-2 ff text-base " v-model="plan.mission.name" :items="mission" item-text="name" item-value="id"></v-combobox>
+                            <v-combobox class="ml-2 ff text-base " v-model="plan.mission" multiple :items="mission" item-text="name" item-value="id"></v-combobox>
                         </div>
+                 
                         <div class="flex justify-center items-center">
                             <span class="ff font-bold">ยุทธศาสตร์</span>
                             <v-combobox class="ml-2 ff text-base " v-model="plan.strategic" multiple :items="strategic" item-text="name" item-value="id"></v-combobox>
@@ -74,7 +75,7 @@
                                 <h2 class="ff">วัน.........เดือน.............ปี..........</h2>
                             </div>
                         </div>
-                        <v-btn @click="print" color="success">text</v-btn>
+                        <v-btn @click="print" color="success">Print</v-btn>
 
                     </div>
                 </v-card>
@@ -135,6 +136,7 @@ export default class RMPlan extends Vue {
     private async created() {
         await this.loadChoice()
         await this.loadAll();
+        this.plan.mission = [this.plan.mission]
         this.response = true;
 
     }
@@ -286,8 +288,7 @@ export default class RMPlan extends Vue {
         this.plan.signature = dataURL
     }
 
-    async print() {
-        this.pp = false
+    async print() { 
         window.print();
 
     }
@@ -308,15 +309,16 @@ export default class RMPlan extends Vue {
 #inspire>div>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(6)>div>div>div.v-input__slot>div.v-select__slot>input[type=hidden]:nth-child(3) {
     font-family: 'Niramit', sans-serif !important;
 }
-
-#inspire>div.v-application--wrap>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(7)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections>div {
-    font-family: 'Niramit', sans-serif !important;
+ #inspire > div.v-dialog__content.v-dialog__content--active > div > div > div > div:nth-child(6) > div > div > div.v-input__slot > div.v-select__slot > input[type=hidden]:nth-child(3){
+       font-family: 'Niramit', sans-serif !important;
+ }
+.v-select__selection .v-select__selection--comma{
+font-family: 'Niramit', sans-serif !important;
 }
 
-#inspire>div.v-application--wrap>main>div>div>div>div.v-window.v-item-group.theme--light.v-tabs-items>div>div>div>div:nth-child(9)>div>div>div.v-input__slot>div.v-select__slot>div.v-select__selections>div {
+#inspire > div.v-dialog__content.v-dialog__content--active > div > div > div > div > div > div > div.v-input__slot > div.v-select__slot > div.v-select__selections > div {
     font-family: 'Niramit', sans-serif !important;
 }
-
 table,
 th,
 td {
